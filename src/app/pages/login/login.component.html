@@ -1,0 +1,101 @@
+<div class="login-container">
+  <div class="form-section">
+    <h1 class="form-title">Get Started Now</h1>
+
+    <form [formGroup]="signUpForm" (ngSubmit)="onSignup()" class="signup-form">
+      <!-- Name Field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="text" />
+        @if (signUpForm.get('name')?.hasError('required') && signUpForm.get('name')?.touched) {
+          <mat-error>Name is required</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Email Field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email address</mat-label>
+        <input matInput formControlName="email" type="email" />
+        @if (signUpForm.get('email')?.hasError('required') && signUpForm.get('email')?.touched) {
+          <mat-error>Email is required</mat-error>
+        }
+        @if (signUpForm.get('email')?.hasError('email') && signUpForm.get('email')?.touched) {
+          <mat-error>Invalid email format</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Password Field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" />
+        @if (
+          signUpForm.get('password')?.hasError('required') && signUpForm.get('password')?.touched
+        ) {
+          <mat-error>Password is required</mat-error>
+        }
+        @if (
+          signUpForm.get('password')?.hasError('minlength') && signUpForm.get('password')?.touched
+        ) {
+          <mat-error>Password must be at least 6 characters</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Terms & Policy Checkbox -->
+      <div class="checkbox-container">
+        <mat-checkbox formControlName="termsAgreed">
+          I agree to the <a href="#" class="terms-link">terms & policy</a>
+        </mat-checkbox>
+        @if (
+          signUpForm.get('termsAgreed')?.hasError('required') &&
+          signUpForm.get('termsAgreed')?.touched
+        ) {
+          <mat-error class="checkbox-error">You must agree to the terms & policy</mat-error>
+        }
+      </div>
+
+      <!-- Signup Button -->
+      <button
+        mat-raised-button
+        color="primary"
+        class="signup-button"
+        [disabled]="!signUpForm.valid"
+        type="submit"
+      >
+        Signup
+      </button>
+    </form>
+
+    <!-- Divider with Or -->
+    <div class="divider-container">
+      <mat-divider></mat-divider>
+      <span class="divider-text">Or</span>
+    </div>
+
+    <!-- Social Sign In Buttons -->
+    <div class="social-buttons">
+      <button mat-stroked-button class="social-button" (click)="onSocialSignIn('Google')">
+        <mat-icon svgIcon="google"></mat-icon>
+        Sign in with Google
+      </button>
+      <button mat-stroked-button class="social-button" (click)="onSocialSignIn('Apple')">
+        <mat-icon svgIcon="apple"></mat-icon>
+        Sign in with Apple
+      </button>
+    </div>
+
+    <!-- Sign In Link -->
+    <div class="signin-link">
+      Have an account?
+      <button mat-button color="accent" (click)="onSignInClick()" type="button">Sign In</button>
+    </div>
+  </div>
+
+  <!-- Decorative Image Section -->
+  <div class="image-section">
+    <img
+      src="https://www.figma.com/api/mcp/asset/ef27644c-3b7e-424d-b7fd-3441709c81a6"
+      alt="Decorative plant"
+      class="decorative-image"
+    />
+  </div>
+</div>
